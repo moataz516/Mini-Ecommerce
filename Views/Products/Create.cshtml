@@ -1,0 +1,64 @@
+﻿@model ECommerceProject.Models.Product
+@*@model Tuple<Product,ProductImage>
+*@
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add product</h2>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="ApplicationUserId" id="ApplicationUserId" asp-for="ApplicationUserId" />
+            <div class="form-group">
+                <label asp-for="CategoryId" class="form-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileImage" class="form-label"></label>
+                <input asp-for="FileImage" class="form-control" />
+                <span asp-validation-for="FileImage" class="text-danger"></span>
+            </div>
+
+@*            <div class="form-group">
+                <label asp-for="Item2.FileImages" class="form-label"></label>
+                <input asp-for="Item2.FileImages" class="form-control" />
+                <span asp-validation-for="Item2.FileImages" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label for="images" class="form-label">Multiple Image</label>
+                <input type="file" name="images" class="form-control" multiple />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Qty" class="form-label"></label>
+                <input asp-for="Qty" class="form-control" />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="form-label"></label>
+                <textarea class="form-control" asp-for="description"> </textarea>
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3 d-flex ">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <button class='ms-3 btn btn-secondary' asp-action="Index">Back to List</button>
+            </div>
+        </form>
+    </div>
+</div>

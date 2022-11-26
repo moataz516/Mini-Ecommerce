@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Order>
+
+
+@if (User.IsInRole("admin"))
+{
+    <div class="d-flex justify-content-center">
+        <p class="fs-1">All Order</p>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center">
+        <p class="fs-1"> My Order </p>
+    </div>    
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>Delivery Date</th>
+            <th>Delivery State</th>
+            <th>Total</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>@item.DeliveryDate.ToShortDateString()</td>
+                @if(item.DeliveryStaus ==0)
+                {
+                    <td>
+                        <span class="badge bg-danger p-2">Pending</span>
+                    </td>
+                }else
+                {
+                    <td>
+                        <span class="badge bg-success p-2">Delivered</span>
+                    </td>
+                }
+
+                <td>@item.total</td>
+            </tr>
+        }
+    </tbody>
+</table>

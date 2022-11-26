@@ -1,0 +1,75 @@
+﻿@using ECommerceProject.ViewModels
+@model List<ApplicationUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <td scope="col">Image</td>
+      <th scope="col">First Name</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+      <td>n</td>
+      <td><img src="@Url.Content("~/image/user_photo/"+item.ProfileImageUrl)" class='img-thumbnail' width="100" height="100" /></td>
+      <td>@item.FirstName</td>
+      <td>@item.UserName</td>
+      <td>@item.Email</td>
+      <td>
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <form asp-action="Delete" asp-route-id="@item.Id">
+            <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>        
+  </tbody>
+</table>
+    }*@
+
+
+<header class="album py-5 bg-light"> 
+    <div class="container">
+        <ul class="row">
+                @foreach (var user in Model)
+                {
+                    <li class="col-md-3" style="list-style:none">
+                    <div class="card shadow-sm">
+                        <img src="@Url.Content("~/image/user_photo/"+ user.ProfileImageUrl)" class="bd-placeholder-img card-img-top" width="100" height="225" />
+
+                        <div class="card-body">
+                            <h3 class="card-text"> <bold>Name:  @user.FirstName</bold> </h3>
+                            <p class="card-text"> UserName: @user.UserName </p>
+                            <p class="card-text"> Email: @user.Email </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                @if(User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                {
+                                    <a asp-action="Details" asp-controller="User" asp-route-id="@user.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a asp-action="Edit" asp-controller="User" asp-route-id="@user.Id"  class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a  asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="btn btn-sm btn-outline-secondary">Delete</a>                                        
+                                }
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </li>    
+                }
+            </ul>        
+
+    </div>
+</header>
+
+    
+
+

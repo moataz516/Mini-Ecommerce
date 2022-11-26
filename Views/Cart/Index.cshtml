@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class='container'>
+
+
+
+
+    <div class="row mb-5 mt-4">
+            @if (ViewBag.cart != null || ViewBag.cart > 0)
+            {
+        <div class='col-md-8' style="min-height:800px;">
+                <table class="table table-borderedless">
+                    <thead class='table-secondary'>
+                        <tr>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th></th>
+                            <th>Price</th>
+                            @*            <th>Sub Total</th>
+                            *@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.cart)
+                        {
+                            <tr>
+                                
+                                <td class='align-middle'>@item.Product.Name</td>
+                                <td> <img src="@Url.Content("~/image/product/"+ item.Product.Image)" class='rounded-circle' width="50" height="50" alt="@item.Product.Name"></td>
+                                <td class='align-middle'>@item.Quantity</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" asp-action="Buy" asp-route-id="@item.Product.Id">+</a>
+                                    <a class="btn btn-info btn-sm" asp-action="Decrease" asp-route-id="@item.Product.Id">-</a>
+                                    <a class="btn btn-danger btn-sm" asp-action="Remove" asp-route-id="@item.Product.Id">Remove</a>
+                                </td>
+                                <td class='align-middle'>@item.Product.Price.ToString("C2")</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                  <div class=" d-flex align-items-center justify-content-between" colspan="4">
+                    <div>
+                        <a class="btn btn-danger" asp-action="Clear">Clear Cart</a>
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Continue Shopping</a>
+                    </div>
+                    <p class="text-right float-right fs-4 text-bold" colspan="4">Total: @ViewBag.total.ToString("C2")</p>
+                </div>
+                </div>
+                <div class='col-md-3'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h4>Card Totals</h4>
+                        </div>
+                        <div class='card-body'>
+                            <div class='card-title'>
+                                <p> <b>SubTotal :</b> @ViewBag.total </p>
+                            </div>
+                            <div class='card-title'>
+                                <p> <b>Total :</b> @ViewBag.total </p>
+                            </div>
+                    
+                            <form  asp-action="Processing" >
+                            <input  type='submit' asp-action="Processing" class="btn btn-primary @((ViewBag.total == 0) ? "d-none" : "") " value="Process"  />
+                         
+                            </form>
+                        </div>
+                </div>
+            </div>
+            }
+            else
+            {
+                <div class="d-flex justify-content-center align-items-end mt-5">
+                    <p class="display-4"> the shopping cart is empty </p>
+                    <p class="fs-5">Back to <a  asp-controller="Home" asp-action="Index">Home</a> </p>
+                </div>
+            }
+            
+
+
+
+</div>
+</div>

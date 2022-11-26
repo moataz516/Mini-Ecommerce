@@ -1,0 +1,64 @@
+﻿@* @model Tuple<ApplicationUser, ChangePasswordViewModel >
+*@
+@model ApplicationUser
+
+
+
+<div class="container ">
+    <div class="mt-4 mb-2">
+        <p class="fs-3 fw-normal">My Profile</p>
+    </div>
+    <div class="row">
+
+            <div class="col-md-6  border rounded p-3" style=" height:auto; border:1px solid #f9f9f9">
+                <h3>Information</h3>
+                <form asp-action="EditUser" enctype="multipart/form-data" class="col-md-12">
+                    <div class="col-md-12 form-group">
+                        <input type="hidden" asp-for="Id" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="FirstName" class="form-label">First Name</label>
+                        <input asp-for="FirstName" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="LastName" class="form-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="UserName" class="form-label">Username</label>
+                        <input asp-for="UserName" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="Image" class="form-label">Profile Image</label>
+                        <input type="file" name="Image" id="Image" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="City" class="form-label">City</label>
+                        <input asp-for="City" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="State" class="form-label">State</label>
+                        <input asp-for="State" class="form-control rounded" />
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label asp-for="PhoneNumber" class="form-label">State</label>
+                        <input asp-for="PhoneNumber" class="form-control rounded" />
+                    </div>
+                    <div class="d-flex justify-content-between form-group">
+                        <input type="submit" class="btn btn-success px-4 mt-4" value="Save" />
+                        <a class="nav-link btn-primary btn-danger  px-3 mt-4 text-white" asp-action="ChangePassword" >
+                            Change password
+                        </a>
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>

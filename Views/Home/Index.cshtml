@@ -1,0 +1,110 @@
+﻿@using ECommerceProject.ViewModels
+@model Tuple<IEnumerable<Product>,IEnumerable<Category>>;
+@*@model IEnumerable<ProductBelongsToCategory>;
+*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+         
+
+
+        <ul class="nav nav-pills nav-fill indicator">
+            <li data-filter="all" class="nav-item active" style="list-style:none"> 
+                <button class="nav-link "> All </button>
+            </li>
+         @foreach (var cat in Model.Item2)
+         {
+            <li class="nav-item " data-filter="@cat.Name" style="list-style:none"> 
+                <button class="nav-link "> @cat.Name </button>
+            </li>   
+         }
+        </ul>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+        {
+             <a class="fs-1 text-success nav-link" asp-action="Create" asp-controller="Products" >+</a>
+        }
+
+        
+    </div>
+</div>
+
+
+<header class="album py-5 bg-light"> 
+    <div class="container">
+        <ul class="items row">
+            @foreach (var item in Model.Item1)
+            {
+                <li data-category="@item.Category.Name" class="col-md-3" style="list-style:none">
+                <div class="card shadow-sm">
+                    <img src="@Url.Content("~/image/product/"+ item.Image)" class="bd-placeholder-img card-img-top" width="100" height="225" />
+
+                    <div class="card-body">
+                        <h3 class="card-text"> <bold>@item.Name</bold> </h3>
+                        <p class="card-text"> @item.description </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a asp-action="Details" asp-controller="Products" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                            @if(User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                            {
+                                <a asp-action="Edit" asp-controller="Products" asp-route-id="@item.Id"  class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a  asp-action="Delete" asp-controller="Products" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Delete</a>                                        
+                            }
+                            </div>
+
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+                                {
+                                    <a class=" btn btn-sm btn-outline-secondary @(Convert.ToBoolean(item.Qty <= 0) ? "disabled" : "") "
+                                   asp-controller="Cart" asp-action="Buy" asp-route-id="@item.Id" >
+                                        <i class="bi bi-cart-plus"></i> Add to Cart 
+                                    </a>
+                                }
+                            </div>
+                    </div>
+                    </div>
+                </li>    
+            }
+        </ul>        
+    </div>
+</header>
+
+
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        let indicator = document.querySelector(".indicator").children;
+        let main = document.querySelector(".items").children;
+        for(let i=0; i<indicator.length; i++)
+        {
+            indicator[i].onclick = function()
+            {
+                for(let x=0; x<indicator.length; x++)
+                {
+                    indicator[x].classList.remove("active")
+                }
+                this.classList.add("active");
+                const displayItems = this.getAttribute("data-filter");
+                for(let z=0; z<main.length;z++)
+                {
+                    main[z].style.transform = "scale(0)";
+                    setTimeout(()=>{
+                        main[z].style.display = "none";
+                    },100)
+                    if((main[z].getAttribute("data-category") == displayItems) || displayItems == "all"){
+                        main[z].style.transform = "scale(1)";
+                        setTimeout(()=>{
+                            main[z].style.display = "block";
+                        },100)
+                    }
+                }
+            }
+        }
+    </script>
+}

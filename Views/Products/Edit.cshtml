@@ -1,0 +1,54 @@
+﻿@model ECommerceProject.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Edit product</h2>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="oldImage" value="@Model.Image" />
+            <div class="form-group">
+                <label asp-for="CategoryId" class="form-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileImage" class="form-label"></label>
+                <input asp-for="FileImage" class="form-control" />
+                <span asp-validation-for="FileImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Qty" class="form-label"></label>
+                <input asp-for="Qty" class="form-control" />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="form-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3 d-flex ">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <button class='ms-3 btn btn-secondary'asp-action="Index">Back to List</button>
+            </div>
+        </form>
+    </div>
+</div>
+

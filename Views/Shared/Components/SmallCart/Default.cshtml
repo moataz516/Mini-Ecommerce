@@ -1,0 +1,12 @@
+﻿@using ECommerceProject.Interfaces
+@model SamllCartViewModel
+@inject ISmallCartViewComponent small
+
+
+
+<a class="text-dark nav-link d-inline" asp-action="Index" asp-controller="Cart" style="position:relative">
+    <i class="fa-solid fa-cart-shopping fs-3"></i>
+    <span style="position:absolute;left:auto;bottom:0">
+            @Model.NumberOfItems 
+    </span>
+</a>
